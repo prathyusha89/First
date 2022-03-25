@@ -1,0 +1,1096 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "Adobe I/O Cloudformation Template for APIP-gw-mcstage-ue1-nlb-gw-b",
+    "Outputs": {
+        "APIPgwmcstageue1nlbgwbext": {
+            "Export": {
+                "Name": {
+                    "Fn::Sub": "${AWS::StackName}-Apipgwmcstageue1nlbgwbextnlb"
+                }
+            },
+            "Value": {
+                "Ref": "Apipgwmcstageue1nlbgwbextnlb"
+            }
+        },
+        "APIPgwmcstageue1nlbgwbexthttpo": {
+            "Export": {
+                "Name": {
+                    "Fn::Sub": "${AWS::StackName}-Apipgwmcstageue1nlbgwbexthttpotg"
+                }
+            },
+            "Value": {
+                "Ref": "Apipgwmcstageue1nlbgwbexthttpotg"
+            }
+        },
+        "APIPgwmcstageue1nlbgwbgw1a": {
+            "Export": {
+                "Name": {
+                    "Fn::Sub": "${AWS::StackName}-Apipgwmcstageue1nlbgwbgw1a"
+                }
+            },
+            "Value": {
+                "Ref": "Apipgwmcstageue1nlbgwbgw1a"
+            }
+        },
+        "APIPgwmcstageue1nlbgwbgw1b": {
+            "Export": {
+                "Name": {
+                    "Fn::Sub": "${AWS::StackName}-Apipgwmcstageue1nlbgwbgw1b"
+                }
+            },
+            "Value": {
+                "Ref": "Apipgwmcstageue1nlbgwbgw1b"
+            }
+        },
+        "APIPgwmcstageue1nlbgwbint": {
+            "Export": {
+                "Name": {
+                    "Fn::Sub": "${AWS::StackName}-Apipgwmcstageue1nlbgwbintnlb"
+                }
+            },
+            "Value": {
+                "Ref": "Apipgwmcstageue1nlbgwbintnlb"
+            }
+        },
+        "APIPgwmcstageue1nlbgwbinthttpo": {
+            "Export": {
+                "Name": {
+                    "Fn::Sub": "${AWS::StackName}-Apipgwmcstageue1nlbgwbinthttpotg"
+                }
+            },
+            "Value": {
+                "Ref": "Apipgwmcstageue1nlbgwbinthttpotg"
+            }
+        }
+    },
+    "Resources": {
+        "Apipgwmcstageue1nlbgwbexthttpotg": {
+            "Properties": {
+                "HealthCheckIntervalSeconds": 10,
+                "HealthCheckPath": "/health-check",
+                "HealthCheckPort": "9191",
+                "HealthCheckProtocol": "HTTP",
+                "HealthyThresholdCount": "4",
+                "Matcher": {
+                    "HttpCode": "200-399"
+                },
+                "Name": "nlb-gw-b-ext-httpo",
+                "Port": "9191",
+                "Protocol": "TCP",
+                "Tags": [
+                    {
+                        "Key": "Adobe.ArchPath",
+                        "Value": "AdobeIO.ApiPlatform.Gateway"
+                    },
+                    {
+                        "Key": "Adobe.Environment",
+                        "Value": "STG"
+                    },
+                    {
+                        "Key": "Adobe.Owner",
+                        "Value": "Adobe I/O"
+                    },
+                    {
+                        "Key": "Adobe.Class",
+                        "Value": "NLBTargetGroup"
+                    },
+                    {
+                        "Key": "Adobe.CostCenter",
+                        "Value": "101942"
+                    },
+                    {
+                        "Key": "Adobe.InstanceType",
+                        "Value": ""
+                    },
+                    {
+                        "Key": "Adobe.DataClassification",
+                        "Value": "Restricted"
+                    },
+                    {
+                        "Key": "Adobe.Cloud",
+                        "Value": "AWS"
+                    },
+                    {
+                        "Key": "Adobe.SKMSServiceId",
+                        "Value": "1801"
+                    },
+                    {
+                        "Key": "Adobe.Region",
+                        "Value": "va6"
+                    },
+                    {
+                        "Key": "Adobe.GatewayCollection",
+                        "Value": "MC"
+                    },
+                    {
+                        "Key": "Adobe.Stack",
+                        "Value": "APIP-gw-mcstage-ue1-nlb-gw-b"
+                    },
+                    {
+                        "Key": "Side",
+                        "Value": "B"
+                    },
+                    {
+                        "Key": "AppType",
+                        "Value": "Gateway"
+                    },
+                    {
+                        "Key": "Adobe.PCIData",
+                        "Value": "false"
+                    },
+                    {
+                        "Key": "Name",
+                        "Value": "APIP-gw-mcstage-ue1-nlb-gw-b-ext"
+                    },
+                    {
+                        "Key": "Adobe:PublicPorts",
+                        "Value": "443"
+                    },
+                    {
+                        "Key": "Adobe:PortJustification",
+                        "Value": "Apigateway needs Public Access"
+                    }
+                ],
+                "UnhealthyThresholdCount": "4",
+                "VpcId": "vpc-21dd6047"
+            },
+            "Type": "AWS::ElasticLoadBalancingV2::TargetGroup"
+        },
+        "Apipgwmcstageue1nlbgwbexthttpslsn": {
+            "Properties": {
+                "Certificates": [
+                    {
+                        "CertificateArn": "arn:aws:iam::720680407946:server-certificate/20220117_wildcard.adobe.io_with_infra.adobe.io"
+                    }
+                ],
+                "DefaultActions": [
+                    {
+                        "TargetGroupArn": {
+                            "Ref": "Apipgwmcstageue1nlbgwbexthttpotg"
+                        },
+                        "Type": "forward"
+                    }
+                ],
+                "LoadBalancerArn": {
+                    "Ref": "Apipgwmcstageue1nlbgwbextnlb"
+                },
+                "Port": 443,
+                "Protocol": "TLS",
+                "SslPolicy": "ELBSecurityPolicy-TLS-1-2-2017-01"
+            },
+            "Type": "AWS::ElasticLoadBalancingV2::Listener"
+        },
+        "Apipgwmcstageue1nlbgwbextnlb": {
+            "Properties": {
+                "LoadBalancerAttributes": [
+                    {
+                        "Key": "deletion_protection.enabled",
+                        "Value": "false"
+                    },
+                    {
+                        "Key": "load_balancing.cross_zone.enabled",
+                        "Value": "false"
+                    }
+                ],
+                "Name": "nlb-gw-b-ext",
+                "Scheme": "internet-facing",
+                "Subnets": [
+                    "subnet-dd1f6ef0",
+                    "subnet-f1e8cfb8"
+                ],
+                "Tags": [
+                    {
+                        "Key": "Adobe.ArchPath",
+                        "Value": "AdobeIO.ApiPlatform.Gateway"
+                    },
+                    {
+                        "Key": "Adobe.Environment",
+                        "Value": "STG"
+                    },
+                    {
+                        "Key": "Adobe.Owner",
+                        "Value": "Adobe I/O"
+                    },
+                    {
+                        "Key": "Adobe.Class",
+                        "Value": "NLB"
+                    },
+                    {
+                        "Key": "Adobe.CostCenter",
+                        "Value": "101942"
+                    },
+                    {
+                        "Key": "Adobe.InstanceType",
+                        "Value": ""
+                    },
+                    {
+                        "Key": "Adobe.DataClassification",
+                        "Value": "Restricted"
+                    },
+                    {
+                        "Key": "Adobe.Cloud",
+                        "Value": "AWS"
+                    },
+                    {
+                        "Key": "Adobe.SKMSServiceId",
+                        "Value": "1801"
+                    },
+                    {
+                        "Key": "Adobe.Region",
+                        "Value": "va6"
+                    },
+                    {
+                        "Key": "Adobe.GatewayCollection",
+                        "Value": "MC"
+                    },
+                    {
+                        "Key": "Adobe.Stack",
+                        "Value": "APIP-gw-mcstage-ue1-nlb-gw-b"
+                    },
+                    {
+                        "Key": "Side",
+                        "Value": "B"
+                    },
+                    {
+                        "Key": "AppType",
+                        "Value": "Gateway"
+                    },
+                    {
+                        "Key": "Adobe.PCIData",
+                        "Value": "false"
+                    },
+                    {
+                        "Key": "Name",
+                        "Value": "APIP-gw-mcstage-ue1-nlb-gw-b-ext"
+                    },
+                    {
+                        "Key": "Adobe:PublicPorts",
+                        "Value": "443"
+                    },
+                    {
+                        "Key": "Adobe:PortJustification",
+                        "Value": "Apigateway needs Public Access"
+                    }
+                ],
+                "Type": "network"
+            },
+            "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer"
+        },
+        "Apipgwmcstageue1nlbgwbgw1a": {
+            "Properties": {
+                "AvailabilityZones": [
+                    "us-east-1a"
+                ],
+                "DesiredCapacity": 2,
+                "HealthCheckGracePeriod": "600",
+                "HealthCheckType": "EC2",
+                "LaunchTemplate": {
+                    "LaunchTemplateId": {
+                        "Ref": "Apipgwmcstageue1nlbgwbgw1alt"
+                    },
+                    "Version": {
+                        "Fn::GetAtt": [
+                            "Apipgwmcstageue1nlbgwbgw1alt",
+                            "LatestVersionNumber"
+                        ]
+                    }
+                },
+                "LoadBalancerNames": [],
+                "MaxSize": 40,
+                "MinSize": 2,
+                "Tags": [
+                    {
+                        "Key": "Adobe.ArchPath",
+                        "PropagateAtLaunch": "true",
+                        "Value": "AdobeIO.ApiPlatform.Gateway"
+                    },
+                    {
+                        "Key": "Adobe.Environment",
+                        "PropagateAtLaunch": "true",
+                        "Value": "STG"
+                    },
+                    {
+                        "Key": "Adobe.Owner",
+                        "PropagateAtLaunch": "true",
+                        "Value": "Adobe I/O"
+                    },
+                    {
+                        "Key": "Adobe.Class",
+                        "PropagateAtLaunch": "true",
+                        "Value": "ASG"
+                    },
+                    {
+                        "Key": "Adobe.CostCenter",
+                        "PropagateAtLaunch": "true",
+                        "Value": "101942"
+                    },
+                    {
+                        "Key": "Adobe.InstanceType",
+                        "PropagateAtLaunch": "true",
+                        "Value": "c5d.xlarge"
+                    },
+                    {
+                        "Key": "Adobe.DataClassification",
+                        "PropagateAtLaunch": "true",
+                        "Value": "Restricted"
+                    },
+                    {
+                        "Key": "Adobe.Cloud",
+                        "PropagateAtLaunch": "true",
+                        "Value": "AWS"
+                    },
+                    {
+                        "Key": "Adobe.SKMSServiceId",
+                        "PropagateAtLaunch": "true",
+                        "Value": "1801"
+                    },
+                    {
+                        "Key": "Adobe.Region",
+                        "PropagateAtLaunch": "true",
+                        "Value": "va6"
+                    },
+                    {
+                        "Key": "Adobe.GatewayCollection",
+                        "PropagateAtLaunch": "true",
+                        "Value": "MC"
+                    },
+                    {
+                        "Key": "Adobe.Stack",
+                        "PropagateAtLaunch": "true",
+                        "Value": "APIP-gw-mcstage-ue1-nlb-gw-b"
+                    },
+                    {
+                        "Key": "Side",
+                        "PropagateAtLaunch": "true",
+                        "Value": "B"
+                    },
+                    {
+                        "Key": "AppType",
+                        "PropagateAtLaunch": "true",
+                        "Value": "Gateway"
+                    },
+                    {
+                        "Key": "Adobe.PCIData",
+                        "PropagateAtLaunch": "true",
+                        "Value": "false"
+                    },
+                    {
+                        "Key": "Name",
+                        "PropagateAtLaunch": "true",
+                        "Value": "APIP-gw-mcstage-ue1-nlb-gw-b-gw1a"
+                    }
+                ],
+                "TargetGroupARNs": [
+                    {
+                        "Ref": "Apipgwmcstageue1nlbgwbexthttpotg"
+                    },
+                    {
+                        "Ref": "Apipgwmcstageue1nlbgwbinthttpotg"
+                    }
+                ],
+                "TerminationPolicies": [
+                    "OldestInstance"
+                ],
+                "VPCZoneIdentifier": [
+                    "subnet-dc1f6ef1"
+                ]
+            },
+            "Type": "AWS::AutoScaling::AutoScalingGroup"
+        },
+        "Apipgwmcstageue1nlbgwbgw1alifehook": {
+            "Properties": {
+                "AutoScalingGroupName": {
+                    "Ref": "Apipgwmcstageue1nlbgwbgw1a"
+                },
+                "DefaultResult": "CONTINUE",
+                "HeartbeatTimeout": 90,
+                "LifecycleHookName": "nlb-registration-delay",
+                "LifecycleTransition": "autoscaling:EC2_INSTANCE_LAUNCHING"
+            },
+            "Type": "AWS::AutoScaling::LifecycleHook"
+        },
+        "Apipgwmcstageue1nlbgwbgw1alt": {
+            "Properties": {
+                "LaunchTemplateData": {
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/sdb",
+                            "VirtualName": "ephemeral0"
+                        }
+                    ],
+                    "EbsOptimized": true,
+                    "IamInstanceProfile": {
+                        "Arn": "arn:aws:iam::720680407946:instance-profile/APIP-gw-mcstage-ue1-iam-roles-Apipgwmcstageue1iamrolesgatewayiamiaminstanceprofile-PBNXP8D1PRKR"
+                    },
+                    "ImageId": "ami-02e4b108c431c3c0f",
+                    "InstanceType": "c5d.xlarge",
+                    "KeyName": "adobeio-stage",
+                    "SecurityGroupIds": [
+                        {
+                            "Fn::ImportValue": "APIP-gw-mcstage-ue1-common-resources-Apipgwmcstageue1commonresourcesgwmcpcinlbsg"
+                        }
+                    ],
+                    "TagSpecifications": [
+                        {
+                            "ResourceType": "volume",
+                            "Tags": [
+                                {
+                                    "Key": "Adobe.ArchPath",
+                                    "Value": "AdobeIO.ApiPlatform.Gateway"
+                                },
+                                {
+                                    "Key": "Adobe.Environment",
+                                    "Value": "STG"
+                                },
+                                {
+                                    "Key": "Adobe.Owner",
+                                    "Value": "Adobe I/O"
+                                },
+                                {
+                                    "Key": "Adobe.Class",
+                                    "Value": "ASG"
+                                },
+                                {
+                                    "Key": "Adobe.CostCenter",
+                                    "Value": "101942"
+                                },
+                                {
+                                    "Key": "Adobe.InstanceType",
+                                    "Value": "c5d.xlarge"
+                                },
+                                {
+                                    "Key": "Adobe.DataClassification",
+                                    "Value": "Restricted"
+                                },
+                                {
+                                    "Key": "Adobe.Cloud",
+                                    "Value": "AWS"
+                                },
+                                {
+                                    "Key": "Adobe.SKMSServiceId",
+                                    "Value": "1801"
+                                },
+                                {
+                                    "Key": "Adobe.Region",
+                                    "Value": "va6"
+                                },
+                                {
+                                    "Key": "Adobe.GatewayCollection",
+                                    "Value": "MC"
+                                },
+                                {
+                                    "Key": "Adobe.Stack",
+                                    "Value": "APIP-gw-mcstage-ue1-nlb-gw-b"
+                                },
+                                {
+                                    "Key": "Side",
+                                    "Value": "B"
+                                },
+                                {
+                                    "Key": "AppType",
+                                    "Value": "Gateway"
+                                },
+                                {
+                                    "Key": "Adobe.PCIData",
+                                    "Value": "false"
+                                },
+                                {
+                                    "Key": "Name",
+                                    "Value": "APIP-gw-mcstage-ue1-nlb-gw-b-gw1a-volume"
+                                }
+                            ]
+                        }
+                    ],
+                    "UserData": {
+                        "Fn::Base64": "Content-Type: multipart/mixed; boundary=\"Apipgwmcstageue1nlbgwbgw1abootstrap\"\nMIME-Version: 1.0\n\n--Apipgwmcstageue1nlbgwbgw1abootstrap\nContent-Type: text/part-handler; charset=\"us-ascii\"\nMIME-Version: 1.0\nContent-Transfer-Encoding: 7bit\nContent-Disposition: attachment; filename=\"bootstrap_handler\"\n\ndef list_types():\n    # return a list of mime-types that are handled by this module\n    return([\"text/aio-bootstrap\"])\n\ndef handle_part(data,ctype,filename,payload):\n    # data: the cloudinit object\n    # ctype: '__begin__', '__end__', or the specific mime-type of the part\n    # filename: the filename for the part, or dynamically generated part if\n    #           no filename is given attribute is present\n    # payload: the content of the part (empty for begin or end)\n    if ctype == \"__begin__\":\n       print \"bootstrap handler is beginning\"\n       return\n    if ctype == \"__end__\":\n       print \"bootstrap handler is ending\"\n       return\n\n    print \"==== received ctype=%s filename=%s ====\" % (ctype,filename)\n    print \"saving bootstrap\"\n    f = open(\"/opt/aio/bin/\"+filename, \"w\")\n    f.write(payload)\n    f.close()\n    print \"==== end ctype=%s filename=%s\" % (ctype, filename)\n\n--Apipgwmcstageue1nlbgwbgw1abootstrap\nContent-Type: text/aio-bootstrap; charset=\"us-ascii\"\nMIME-Version: 1.0\nContent-Transfer-Encoding: 7bit\nContent-Disposition: attachment; filename=\"bootstrap_chef.py\"\n\n### Configure chef from env vars on boot ###\n\nfrom os import environ, system\nfrom requests import get\nfrom json import loads\nfrom email import message_from_string\nfrom traceback import print_exception\nfrom socket import setdefaulttimeout, socket, AF_INET, SOCK_STREAM\nfrom socket import error as socket_err\nfrom time import sleep\n\ncloud = environ['CLOUD']\nchef_org = environ['CHEF_ORG']\nchef_store = environ['CHEF_STORE']\nchef_validator = chef_org+\"-validator.pem\"\nchef_enc_key = chef_org+\"-encrypted_data_bag_secret.pem\"\nchef_dir = \"/etc/chef/\"\nchef_role = environ['CHEF_ROLE']\nchef_env = environ['CHEF_ENV']\nchef_server_url = environ['CHEF_SERVER_URL']\nchef_node_name = ''\n\nif cloud == 'aws':\n    from boto.s3.connection import S3Connection\n    from boto.ec2.connection import EC2Connection\n    from boto.utils import get_instance_metadata\n    from boto.ec2 import connect_to_region\nelse:\n    from msrestazure.azure_active_directory import MSIAuthentication\n    from azure.mgmt.resource import SubscriptionClient\n    from azure.keyvault import KeyVaultClient\n\ndef test_net(host=\"8.8.8.8\", port=53, timeout=3):\n  \"\"\"\n  Test network access \n  \"\"\"\n  try:\n    setdefaulttimeout(timeout)\n    socket(AF_INET, SOCK_STREAM).connect((host, port))\n    return True\n  except socket_err as ex:\n    print(ex)\n    return False\n\ndef wait_for_net(timeout):\n    #try to connect to 8.8.8.8 until timeout\n    count = 0\n    while count < timeout:\n        print(\"testing...\")\n        if test_net():\n            print(\"net ok\")\n            return\n        else:\n            print(\"retrying ...\")\n            sleep(1)\n            count+=1\n    print(\"Failed to get network\")\n\ndef get_az_metadata():\n    print(\"Getting Azure instance name ...\")\n    headers = {'Metadata': 'true'}\n    params = {\"api-version\":\"2018-02-01\"}\n    result = get(\"http://169.254.169.254/metadata/instance/compute\", params=params, headers=headers)\n    instance_name = loads(result.text)[\"name\"]\n    rfc_instance_name = instance_name.replace(\"_\",\"-\")\n    print(\"Done, got: \"+ rfc_instance_name)\n    return rfc_instance_name\n\ndef get_userdata():\n    data = get(\"http://169.254.169.254/latest/user-data/\")\n    parsed = message_from_string(data.text).get_payload()\n    return parsed[2].get_payload()\n\n\ndef get_instance_id():\n    global chef_node_name\n    if cloud == 'aws':\n        instance_id = get_instance_metadata()['instance-id']\n        region = get_instance_metadata()['placement']['availability-zone'][:-1]\n        chef_node_name = chef_env+'-'+chef_role+'-'+instance_id\n        conn = connect_to_region(region)\n        conn.create_tags([instance_id], {'Name': 'Provisioning with chef...'})\n    else:\n        print(\"Setting Azure instance hostname ...\")\n        instance_id = get_az_metadata()\n        chef_node_name = instance_id\n        system(\"hostnamectl set-hostname \"+instance_id)\n        print(\"Done.\")\n\ndef gen_first_boot():\n    try:\n        f = open(chef_dir+\"first-boot.json\", \"w\")\n        f.write('{ \"run_list\": [ \"role['+chef_role+']\" ] }')\n        f.close()\n        print(\"Done!\")\n    except IOError:\n        print(\"Could not create first-boot.json\")\n\ndef get_chef_secrets_aws():\n    conn = S3Connection()\n    bucket = conn.get_bucket(chef_store)\n    validator = bucket.get_key(chef_validator)\n    secret = bucket.get_key(chef_enc_key)\n    v = open(chef_dir+chef_validator, 'w')\n    s = open(chef_dir+'encrypted_data_bag_secret', 'w')\n    validator.get_contents_to_file(v)\n    secret.get_contents_to_file(s)\n    v.close()\n    s.close()\n    conn.close()\n\ndef auth_azure():\n    print(\"Getting auth credentials ...\")\n    headers = {'Metadata': 'true'}\n    params = {\"api-version\":\"2018-02-01\", \"resource\":\"https://storage.azure.com/\"}\n    result = get(\"http://169.254.169.254/metadata/identity/oauth2/token\", params=params, headers=headers)\n    if result.status_code == 200:\n        print(\"Request success ... authenticating.\")\n        client_id = loads(result.text)[\"client_id\"]\n        credentials = MSIAuthentication(\n            client_id = client_id\n        )\n        print(\"Done.\")\n        return credentials\n    else:\n        print(result.headers, result.status_code, result.text)\n        print(\"Error getting credentials ...\")\n        exit(1)\n\ndef get_chef_secrets_az(creds):\n    try:\n        print(\"Getting chef secrets from keyvault..\")\n        kv_client = KeyVaultClient(creds)\n        chef_secret = kv_client.get_secret(\"https://\"+chef_store+\".vault.azure.net\", \"chef-key\", \"\")\n        chef_encrypted = kv_client.get_secret(\"https://\"+chef_store+\".vault.azure.net\", \"chef-databag-secret\", \"\")\n    except Exception as e:\n        print('ERROR: running sample failed with raised exception:')\n        print_exception(type(e), e, getattr(e, '__traceback__', None))\n        exit(1)\n    v = open(chef_dir+chef_validator, 'w')\n    s = open(chef_dir+'encrypted_data_bag_secret', 'w')\n    v.write(chef_secret.value)\n    s.write(chef_encrypted.value)\n    v.close()\n    s.close()\n    print(\"Done\")\n\ndef gen_client_rb():\n    f = open(chef_dir+\"client.rb\", \"w\")\n    f.write('log_level       :info\\n')\n    f.write('environment       \"'+chef_env+'\"\\n')\n    f.write('log_location       \"/var/log/chef/client.log\"\\n')\n    f.write('chef_server_url         \"'+chef_server_url+'/organizations/'+chef_org+'\"\\n')\n    f.write('validation_client_name       \"'+chef_org+'-validator\"\\n')\n    f.write('validation_key       \"/etc/chef/'+chef_org+'-validator.pem\"\\n')\n    f.write('node_name       \"'+chef_node_name+'\"\\n')\n\n    # Add an error reporting handler. It reports back, in a separate node attribute, in case of error:\n    #  - run_list with cookbook versions\n    #  - the error\n    #  - deploy_status as a field which can be polled from a deployment script\n    # Compabile with chef.io and chef-automate\n\n    #Splunk URLs for webhooks\n    # sev2 -> https://hooks.slack.com/services/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\n    # adobeio_test -> https://hooks.slack.com/services/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\n\n    f.write(\"\"\"\nmodule Flapjack\n  class StartHandler < Chef::Handler\n    def report\n      node.set['flapjack'] = node['flapjack'] || Hash.new\n      node.set['flapjack']['deploy_status']='STARTED'\n      node.set['flapjack']['run_list']=nil\n      node.set['flapjack']['message']=nil\n      node.set['flapjack']['full_message']=nil\n      Chef::Log.info 'Updating Chef Run to STARTED'\n      node.save\n    end\n  end\n  class ReportingHandler < Chef::Handler\n    def report\n      Chef::Log.info 'Updating Chef Run to FINISHED'\n      node.set['flapjack']['deploy_status']='FINISHED'\n      node.set['flapjack']['run_list'] = run_context.cookbook_collection.collect { |k, v| \"#{k}@#{v.version}\" } unless node['flapjack']['run_list']\n      node.save\n    end\n  end\n  class ErrorHandler < Chef::Handler\n    def report\n      slackendpoint = \"https://hooks.slack.com/services/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\"\n      if run_status.failed? then\n        Chef::Log.info 'Updating Chef Run to FAILED'\n        if run_status.formatted_exception.nil? || run_status.formatted_exception.empty?\n          system(\"curl -sf -X POST -H 'Content-type: application/json' --data '{\\\\\"text\\\\\":\\\\\"Chef Run Failed on #{node.name}\\\\\"}' #{slackendpoint}\")\n        else\n            if /[\\\\'\\\\\"&;|`!\\\\\\\\\\\\\\\\]/.match(run_status.formatted_exception)\n              system(\"curl -sf -X POST -H 'Content-type: application/json' --data '{\\\\\"text\\\\\":\\\\\"Chef Run Failed on #{node.name} with shell or JSON unsafe code (likely cookbook prereqs cant be met)\\\\\"}' #{slackendpoint}\")          \n            else\n              system(\"curl -sf -X POST -H 'Content-type: application/json' --data '{\\\\\"text\\\\\":\\\\\"Chef Run Failed on #{node.name} due to #{run_status.formatted_exception}\\\\\"}' #{slackendpoint} |grep ok || curl -sf -X POST -H 'Content-type: application/json' --data '{\\\\\"text\\\\\":\\\\\"Chef Run Failed on #{node.name} with non JSON error\\\\\"}' #{slackendpoint}\")\n            end\n        end\n        node.set['flapjack'] = node['flapjack'] || Hash.new\n        node.set['flapjack']['deploy_status']='ERROR'\n        node.set['flapjack']['message'] = \"#{run_status.formatted_exception}\"\n        node.set['flapjack']['full_message'] = \"#{run_status.backtrace.join(\"\\\\n\")}\"\n        node.set['flapjack']['run_list'] = run_context.cookbook_collection.collect { |k, v| \"#{k}@#{v.version}\" } unless node['flapjack']['run_list']\n        node.save\n     end\n    end\n  end\nend\nreport_handlers << Flapjack::ReportingHandler.new\nexception_handlers << Flapjack::ErrorHandler.new\nstart_handlers << Flapjack::StartHandler.new\n\"\"\")\n    f.close()\n\n\ndef main():\n    wait_for_net(60)\n    get_instance_id()    \n    gen_client_rb()\n    if cloud == 'aws':\n        get_chef_secrets_aws()\n    else:\n        creds = auth_azure()\n        get_chef_secrets_az(creds)\n    gen_first_boot()\n\nif __name__ == \"__main__\":\n    main()\n\n--Apipgwmcstageue1nlbgwbgw1abootstrap\nContent-Type: text/aio-userdata; charset=\"us-ascii\"\nMIME-Version: 1.0\nContent-Transfer-Encoding: 7bit\nContent-Disposition: attachment; filename=\"data\"\n\n{}\n--Apipgwmcstageue1nlbgwbgw1abootstrap\nContent-Type: text/x-shellscript; charset=\"us-ascii\"\nMIME-Version: 1.0\nContent-Transfer-Encoding: 7bit\nContent-Disposition: attachment; filename=\"bootstrap\"\n\n#!/bin/sh\n             mkdir /etc/chef; mkdir -p /var/log/chef; \n             CLOUD=aws CHEF_SERVER_URL=https://chef.aws.adobeitc.com CHEF_ORG=adobeio CHEF_ROLE=API-Gateway-nlb CHEF_ENV=API-MCSTAGE-UE1-PCI-B CHEF_STORE=adobe-cloudops-apip-chef-ue1 ELB= python /opt/aio/bin/bootstrap_chef.py; \n             VPC_NAME= chef-client -j /etc/chef/first-boot.json  > /var/log/chef/chef-boot.log 2>&1\n\n--Apipgwmcstageue1nlbgwbgw1abootstrap--\n"
+                    }
+                }
+            },
+            "Type": "AWS::EC2::LaunchTemplate"
+        },
+        "Apipgwmcstageue1nlbgwbgw1ascaledown": {
+            "Properties": {
+                "AdjustmentType": "ChangeInCapacity",
+                "AutoScalingGroupName": {
+                    "Ref": "Apipgwmcstageue1nlbgwbgw1a"
+                },
+                "Cooldown": 600,
+                "ScalingAdjustment": -2
+            },
+            "Type": "AWS::AutoScaling::ScalingPolicy"
+        },
+        "Apipgwmcstageue1nlbgwbgw1ascaledownalarm": {
+            "Properties": {
+                "AlarmActions": [
+                    {
+                        "Ref": "Apipgwmcstageue1nlbgwbgw1ascaledown"
+                    }
+                ],
+                "AlarmDescription": "ScaleDown alarm for APIP-gw-mcstage-ue1-nlb-gw-b-gw1a",
+                "ComparisonOperator": "LessThanOrEqualToThreshold",
+                "Dimensions": [
+                    {
+                        "Name": "AutoScalingGroupName",
+                        "Value": {
+                            "Ref": "Apipgwmcstageue1nlbgwbgw1a"
+                        }
+                    }
+                ],
+                "EvaluationPeriods": 2,
+                "InsufficientDataActions": [],
+                "MetricName": "CPUUtilization",
+                "Namespace": "AWS/EC2",
+                "OKActions": [],
+                "Period": 60,
+                "Statistic": "Minimum",
+                "Threshold": "15"
+            },
+            "Type": "AWS::CloudWatch::Alarm"
+        },
+        "Apipgwmcstageue1nlbgwbgw1ascaleup": {
+            "Properties": {
+                "AdjustmentType": "ChangeInCapacity",
+                "AutoScalingGroupName": {
+                    "Ref": "Apipgwmcstageue1nlbgwbgw1a"
+                },
+                "Cooldown": 600,
+                "ScalingAdjustment": 4
+            },
+            "Type": "AWS::AutoScaling::ScalingPolicy"
+        },
+        "Apipgwmcstageue1nlbgwbgw1ascaleupalarm": {
+            "Properties": {
+                "AlarmActions": [
+                    {
+                        "Ref": "Apipgwmcstageue1nlbgwbgw1ascaleup"
+                    }
+                ],
+                "AlarmDescription": "ScaleUp alarm for APIP-gw-mcstage-ue1-nlb-gw-b-gw1a",
+                "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+                "Dimensions": [
+                    {
+                        "Name": "AutoScalingGroupName",
+                        "Value": {
+                            "Ref": "Apipgwmcstageue1nlbgwbgw1a"
+                        }
+                    }
+                ],
+                "EvaluationPeriods": 2,
+                "InsufficientDataActions": [],
+                "MetricName": "CPUUtilization",
+                "Namespace": "AWS/EC2",
+                "OKActions": [],
+                "Period": 60,
+                "Statistic": "Maximum",
+                "Threshold": "60"
+            },
+            "Type": "AWS::CloudWatch::Alarm"
+        },
+        "Apipgwmcstageue1nlbgwbgw1b": {
+            "Properties": {
+                "AvailabilityZones": [
+                    "us-east-1b"
+                ],
+                "DesiredCapacity": 2,
+                "HealthCheckGracePeriod": "600",
+                "HealthCheckType": "EC2",
+                "LaunchTemplate": {
+                    "LaunchTemplateId": {
+                        "Ref": "Apipgwmcstageue1nlbgwbgw1blt"
+                    },
+                    "Version": {
+                        "Fn::GetAtt": [
+                            "Apipgwmcstageue1nlbgwbgw1blt",
+                            "LatestVersionNumber"
+                        ]
+                    }
+                },
+                "LoadBalancerNames": [],
+                "MaxSize": 40,
+                "MinSize": 2,
+                "Tags": [
+                    {
+                        "Key": "Adobe.ArchPath",
+                        "PropagateAtLaunch": "true",
+                        "Value": "AdobeIO.ApiPlatform.Gateway"
+                    },
+                    {
+                        "Key": "Adobe.Environment",
+                        "PropagateAtLaunch": "true",
+                        "Value": "STG"
+                    },
+                    {
+                        "Key": "Adobe.Owner",
+                        "PropagateAtLaunch": "true",
+                        "Value": "Adobe I/O"
+                    },
+                    {
+                        "Key": "Adobe.Class",
+                        "PropagateAtLaunch": "true",
+                        "Value": "ASG"
+                    },
+                    {
+                        "Key": "Adobe.CostCenter",
+                        "PropagateAtLaunch": "true",
+                        "Value": "101942"
+                    },
+                    {
+                        "Key": "Adobe.InstanceType",
+                        "PropagateAtLaunch": "true",
+                        "Value": "c5d.xlarge"
+                    },
+                    {
+                        "Key": "Adobe.DataClassification",
+                        "PropagateAtLaunch": "true",
+                        "Value": "Restricted"
+                    },
+                    {
+                        "Key": "Adobe.Cloud",
+                        "PropagateAtLaunch": "true",
+                        "Value": "AWS"
+                    },
+                    {
+                        "Key": "Adobe.SKMSServiceId",
+                        "PropagateAtLaunch": "true",
+                        "Value": "1801"
+                    },
+                    {
+                        "Key": "Adobe.Region",
+                        "PropagateAtLaunch": "true",
+                        "Value": "va6"
+                    },
+                    {
+                        "Key": "Adobe.GatewayCollection",
+                        "PropagateAtLaunch": "true",
+                        "Value": "MC"
+                    },
+                    {
+                        "Key": "Adobe.Stack",
+                        "PropagateAtLaunch": "true",
+                        "Value": "APIP-gw-mcstage-ue1-nlb-gw-b"
+                    },
+                    {
+                        "Key": "Side",
+                        "PropagateAtLaunch": "true",
+                        "Value": "B"
+                    },
+                    {
+                        "Key": "AppType",
+                        "PropagateAtLaunch": "true",
+                        "Value": "Gateway"
+                    },
+                    {
+                        "Key": "Adobe.PCIData",
+                        "PropagateAtLaunch": "true",
+                        "Value": "false"
+                    },
+                    {
+                        "Key": "Name",
+                        "PropagateAtLaunch": "true",
+                        "Value": "APIP-gw-mcstage-ue1-nlb-gw-b-gw1b"
+                    }
+                ],
+                "TargetGroupARNs": [
+                    {
+                        "Ref": "Apipgwmcstageue1nlbgwbexthttpotg"
+                    },
+                    {
+                        "Ref": "Apipgwmcstageue1nlbgwbinthttpotg"
+                    }
+                ],
+                "TerminationPolicies": [
+                    "OldestInstance"
+                ],
+                "VPCZoneIdentifier": [
+                    "subnet-fee8cfb7"
+                ]
+            },
+            "Type": "AWS::AutoScaling::AutoScalingGroup"
+        },
+        "Apipgwmcstageue1nlbgwbgw1blifehook": {
+            "Properties": {
+                "AutoScalingGroupName": {
+                    "Ref": "Apipgwmcstageue1nlbgwbgw1b"
+                },
+                "DefaultResult": "CONTINUE",
+                "HeartbeatTimeout": 90,
+                "LifecycleHookName": "nlb-registration-delay",
+                "LifecycleTransition": "autoscaling:EC2_INSTANCE_LAUNCHING"
+            },
+            "Type": "AWS::AutoScaling::LifecycleHook"
+        },
+        "Apipgwmcstageue1nlbgwbgw1blt": {
+            "Properties": {
+                "LaunchTemplateData": {
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/sdb",
+                            "VirtualName": "ephemeral0"
+                        }
+                    ],
+                    "EbsOptimized": true,
+                    "IamInstanceProfile": {
+                        "Arn": "arn:aws:iam::720680407946:instance-profile/APIP-gw-mcstage-ue1-iam-roles-Apipgwmcstageue1iamrolesgatewayiamiaminstanceprofile-PBNXP8D1PRKR"
+                    },
+                    "ImageId": "ami-02e4b108c431c3c0f",
+                    "InstanceType": "c5d.xlarge",
+                    "KeyName": "adobeio-stage",
+                    "SecurityGroupIds": [
+                        {
+                            "Fn::ImportValue": "APIP-gw-mcstage-ue1-common-resources-Apipgwmcstageue1commonresourcesgwmcpcinlbsg"
+                        }
+                    ],
+                    "TagSpecifications": [
+                        {
+                            "ResourceType": "volume",
+                            "Tags": [
+                                {
+                                    "Key": "Adobe.ArchPath",
+                                    "Value": "AdobeIO.ApiPlatform.Gateway"
+                                },
+                                {
+                                    "Key": "Adobe.Environment",
+                                    "Value": "STG"
+                                },
+                                {
+                                    "Key": "Adobe.Owner",
+                                    "Value": "Adobe I/O"
+                                },
+                                {
+                                    "Key": "Adobe.Class",
+                                    "Value": "ASG"
+                                },
+                                {
+                                    "Key": "Adobe.CostCenter",
+                                    "Value": "101942"
+                                },
+                                {
+                                    "Key": "Adobe.InstanceType",
+                                    "Value": "c5d.xlarge"
+                                },
+                                {
+                                    "Key": "Adobe.DataClassification",
+                                    "Value": "Restricted"
+                                },
+                                {
+                                    "Key": "Adobe.Cloud",
+                                    "Value": "AWS"
+                                },
+                                {
+                                    "Key": "Adobe.SKMSServiceId",
+                                    "Value": "1801"
+                                },
+                                {
+                                    "Key": "Adobe.Region",
+                                    "Value": "va6"
+                                },
+                                {
+                                    "Key": "Adobe.GatewayCollection",
+                                    "Value": "MC"
+                                },
+                                {
+                                    "Key": "Adobe.Stack",
+                                    "Value": "APIP-gw-mcstage-ue1-nlb-gw-b"
+                                },
+                                {
+                                    "Key": "Side",
+                                    "Value": "B"
+                                },
+                                {
+                                    "Key": "AppType",
+                                    "Value": "Gateway"
+                                },
+                                {
+                                    "Key": "Adobe.PCIData",
+                                    "Value": "false"
+                                },
+                                {
+                                    "Key": "Name",
+                                    "Value": "APIP-gw-mcstage-ue1-nlb-gw-b-gw1b-volume"
+                                }
+                            ]
+                        }
+                    ],
+                    "UserData": {
+                        "Fn::Base64": "Content-Type: multipart/mixed; boundary=\"Apipgwmcstageue1nlbgwbgw1bbootstrap\"\nMIME-Version: 1.0\n\n--Apipgwmcstageue1nlbgwbgw1bbootstrap\nContent-Type: text/part-handler; charset=\"us-ascii\"\nMIME-Version: 1.0\nContent-Transfer-Encoding: 7bit\nContent-Disposition: attachment; filename=\"bootstrap_handler\"\n\ndef list_types():\n    # return a list of mime-types that are handled by this module\n    return([\"text/aio-bootstrap\"])\n\ndef handle_part(data,ctype,filename,payload):\n    # data: the cloudinit object\n    # ctype: '__begin__', '__end__', or the specific mime-type of the part\n    # filename: the filename for the part, or dynamically generated part if\n    #           no filename is given attribute is present\n    # payload: the content of the part (empty for begin or end)\n    if ctype == \"__begin__\":\n       print \"bootstrap handler is beginning\"\n       return\n    if ctype == \"__end__\":\n       print \"bootstrap handler is ending\"\n       return\n\n    print \"==== received ctype=%s filename=%s ====\" % (ctype,filename)\n    print \"saving bootstrap\"\n    f = open(\"/opt/aio/bin/\"+filename, \"w\")\n    f.write(payload)\n    f.close()\n    print \"==== end ctype=%s filename=%s\" % (ctype, filename)\n\n--Apipgwmcstageue1nlbgwbgw1bbootstrap\nContent-Type: text/aio-bootstrap; charset=\"us-ascii\"\nMIME-Version: 1.0\nContent-Transfer-Encoding: 7bit\nContent-Disposition: attachment; filename=\"bootstrap_chef.py\"\n\n### Configure chef from env vars on boot ###\n\nfrom os import environ, system\nfrom requests import get\nfrom json import loads\nfrom email import message_from_string\nfrom traceback import print_exception\nfrom socket import setdefaulttimeout, socket, AF_INET, SOCK_STREAM\nfrom socket import error as socket_err\nfrom time import sleep\n\ncloud = environ['CLOUD']\nchef_org = environ['CHEF_ORG']\nchef_store = environ['CHEF_STORE']\nchef_validator = chef_org+\"-validator.pem\"\nchef_enc_key = chef_org+\"-encrypted_data_bag_secret.pem\"\nchef_dir = \"/etc/chef/\"\nchef_role = environ['CHEF_ROLE']\nchef_env = environ['CHEF_ENV']\nchef_server_url = environ['CHEF_SERVER_URL']\nchef_node_name = ''\n\nif cloud == 'aws':\n    from boto.s3.connection import S3Connection\n    from boto.ec2.connection import EC2Connection\n    from boto.utils import get_instance_metadata\n    from boto.ec2 import connect_to_region\nelse:\n    from msrestazure.azure_active_directory import MSIAuthentication\n    from azure.mgmt.resource import SubscriptionClient\n    from azure.keyvault import KeyVaultClient\n\ndef test_net(host=\"8.8.8.8\", port=53, timeout=3):\n  \"\"\"\n  Test network access \n  \"\"\"\n  try:\n    setdefaulttimeout(timeout)\n    socket(AF_INET, SOCK_STREAM).connect((host, port))\n    return True\n  except socket_err as ex:\n    print(ex)\n    return False\n\ndef wait_for_net(timeout):\n    #try to connect to 8.8.8.8 until timeout\n    count = 0\n    while count < timeout:\n        print(\"testing...\")\n        if test_net():\n            print(\"net ok\")\n            return\n        else:\n            print(\"retrying ...\")\n            sleep(1)\n            count+=1\n    print(\"Failed to get network\")\n\ndef get_az_metadata():\n    print(\"Getting Azure instance name ...\")\n    headers = {'Metadata': 'true'}\n    params = {\"api-version\":\"2018-02-01\"}\n    result = get(\"http://169.254.169.254/metadata/instance/compute\", params=params, headers=headers)\n    instance_name = loads(result.text)[\"name\"]\n    rfc_instance_name = instance_name.replace(\"_\",\"-\")\n    print(\"Done, got: \"+ rfc_instance_name)\n    return rfc_instance_name\n\ndef get_userdata():\n    data = get(\"http://169.254.169.254/latest/user-data/\")\n    parsed = message_from_string(data.text).get_payload()\n    return parsed[2].get_payload()\n\n\ndef get_instance_id():\n    global chef_node_name\n    if cloud == 'aws':\n        instance_id = get_instance_metadata()['instance-id']\n        region = get_instance_metadata()['placement']['availability-zone'][:-1]\n        chef_node_name = chef_env+'-'+chef_role+'-'+instance_id\n        conn = connect_to_region(region)\n        conn.create_tags([instance_id], {'Name': 'Provisioning with chef...'})\n    else:\n        print(\"Setting Azure instance hostname ...\")\n        instance_id = get_az_metadata()\n        chef_node_name = instance_id\n        system(\"hostnamectl set-hostname \"+instance_id)\n        print(\"Done.\")\n\ndef gen_first_boot():\n    try:\n        f = open(chef_dir+\"first-boot.json\", \"w\")\n        f.write('{ \"run_list\": [ \"role['+chef_role+']\" ] }')\n        f.close()\n        print(\"Done!\")\n    except IOError:\n        print(\"Could not create first-boot.json\")\n\ndef get_chef_secrets_aws():\n    conn = S3Connection()\n    bucket = conn.get_bucket(chef_store)\n    validator = bucket.get_key(chef_validator)\n    secret = bucket.get_key(chef_enc_key)\n    v = open(chef_dir+chef_validator, 'w')\n    s = open(chef_dir+'encrypted_data_bag_secret', 'w')\n    validator.get_contents_to_file(v)\n    secret.get_contents_to_file(s)\n    v.close()\n    s.close()\n    conn.close()\n\ndef auth_azure():\n    print(\"Getting auth credentials ...\")\n    headers = {'Metadata': 'true'}\n    params = {\"api-version\":\"2018-02-01\", \"resource\":\"https://storage.azure.com/\"}\n    result = get(\"http://169.254.169.254/metadata/identity/oauth2/token\", params=params, headers=headers)\n    if result.status_code == 200:\n        print(\"Request success ... authenticating.\")\n        client_id = loads(result.text)[\"client_id\"]\n        credentials = MSIAuthentication(\n            client_id = client_id\n        )\n        print(\"Done.\")\n        return credentials\n    else:\n        print(result.headers, result.status_code, result.text)\n        print(\"Error getting credentials ...\")\n        exit(1)\n\ndef get_chef_secrets_az(creds):\n    try:\n        print(\"Getting chef secrets from keyvault..\")\n        kv_client = KeyVaultClient(creds)\n        chef_secret = kv_client.get_secret(\"https://\"+chef_store+\".vault.azure.net\", \"chef-key\", \"\")\n        chef_encrypted = kv_client.get_secret(\"https://\"+chef_store+\".vault.azure.net\", \"chef-databag-secret\", \"\")\n    except Exception as e:\n        print('ERROR: running sample failed with raised exception:')\n        print_exception(type(e), e, getattr(e, '__traceback__', None))\n        exit(1)\n    v = open(chef_dir+chef_validator, 'w')\n    s = open(chef_dir+'encrypted_data_bag_secret', 'w')\n    v.write(chef_secret.value)\n    s.write(chef_encrypted.value)\n    v.close()\n    s.close()\n    print(\"Done\")\n\ndef gen_client_rb():\n    f = open(chef_dir+\"client.rb\", \"w\")\n    f.write('log_level       :info\\n')\n    f.write('environment       \"'+chef_env+'\"\\n')\n    f.write('log_location       \"/var/log/chef/client.log\"\\n')\n    f.write('chef_server_url         \"'+chef_server_url+'/organizations/'+chef_org+'\"\\n')\n    f.write('validation_client_name       \"'+chef_org+'-validator\"\\n')\n    f.write('validation_key       \"/etc/chef/'+chef_org+'-validator.pem\"\\n')\n    f.write('node_name       \"'+chef_node_name+'\"\\n')\n\n    # Add an error reporting handler. It reports back, in a separate node attribute, in case of error:\n    #  - run_list with cookbook versions\n    #  - the error\n    #  - deploy_status as a field which can be polled from a deployment script\n    # Compabile with chef.io and chef-automate\n\n    #Splunk URLs for webhooks\n    # sev2 -> https://hooks.slack.com/services/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\n    # adobeio_test -> https://hooks.slack.com/services/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\n\n    f.write(\"\"\"\nmodule Flapjack\n  class StartHandler < Chef::Handler\n    def report\n      node.set['flapjack'] = node['flapjack'] || Hash.new\n      node.set['flapjack']['deploy_status']='STARTED'\n      node.set['flapjack']['run_list']=nil\n      node.set['flapjack']['message']=nil\n      node.set['flapjack']['full_message']=nil\n      Chef::Log.info 'Updating Chef Run to STARTED'\n      node.save\n    end\n  end\n  class ReportingHandler < Chef::Handler\n    def report\n      Chef::Log.info 'Updating Chef Run to FINISHED'\n      node.set['flapjack']['deploy_status']='FINISHED'\n      node.set['flapjack']['run_list'] = run_context.cookbook_collection.collect { |k, v| \"#{k}@#{v.version}\" } unless node['flapjack']['run_list']\n      node.save\n    end\n  end\n  class ErrorHandler < Chef::Handler\n    def report\n      slackendpoint = \"https://hooks.slack.com/services/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\"\n      if run_status.failed? then\n        Chef::Log.info 'Updating Chef Run to FAILED'\n        if run_status.formatted_exception.nil? || run_status.formatted_exception.empty?\n          system(\"curl -sf -X POST -H 'Content-type: application/json' --data '{\\\\\"text\\\\\":\\\\\"Chef Run Failed on #{node.name}\\\\\"}' #{slackendpoint}\")\n        else\n            if /[\\\\'\\\\\"&;|`!\\\\\\\\\\\\\\\\]/.match(run_status.formatted_exception)\n              system(\"curl -sf -X POST -H 'Content-type: application/json' --data '{\\\\\"text\\\\\":\\\\\"Chef Run Failed on #{node.name} with shell or JSON unsafe code (likely cookbook prereqs cant be met)\\\\\"}' #{slackendpoint}\")          \n            else\n              system(\"curl -sf -X POST -H 'Content-type: application/json' --data '{\\\\\"text\\\\\":\\\\\"Chef Run Failed on #{node.name} due to #{run_status.formatted_exception}\\\\\"}' #{slackendpoint} |grep ok || curl -sf -X POST -H 'Content-type: application/json' --data '{\\\\\"text\\\\\":\\\\\"Chef Run Failed on #{node.name} with non JSON error\\\\\"}' #{slackendpoint}\")\n            end\n        end\n        node.set['flapjack'] = node['flapjack'] || Hash.new\n        node.set['flapjack']['deploy_status']='ERROR'\n        node.set['flapjack']['message'] = \"#{run_status.formatted_exception}\"\n        node.set['flapjack']['full_message'] = \"#{run_status.backtrace.join(\"\\\\n\")}\"\n        node.set['flapjack']['run_list'] = run_context.cookbook_collection.collect { |k, v| \"#{k}@#{v.version}\" } unless node['flapjack']['run_list']\n        node.save\n     end\n    end\n  end\nend\nreport_handlers << Flapjack::ReportingHandler.new\nexception_handlers << Flapjack::ErrorHandler.new\nstart_handlers << Flapjack::StartHandler.new\n\"\"\")\n    f.close()\n\n\ndef main():\n    wait_for_net(60)\n    get_instance_id()    \n    gen_client_rb()\n    if cloud == 'aws':\n        get_chef_secrets_aws()\n    else:\n        creds = auth_azure()\n        get_chef_secrets_az(creds)\n    gen_first_boot()\n\nif __name__ == \"__main__\":\n    main()\n\n--Apipgwmcstageue1nlbgwbgw1bbootstrap\nContent-Type: text/aio-userdata; charset=\"us-ascii\"\nMIME-Version: 1.0\nContent-Transfer-Encoding: 7bit\nContent-Disposition: attachment; filename=\"data\"\n\n{}\n--Apipgwmcstageue1nlbgwbgw1bbootstrap\nContent-Type: text/x-shellscript; charset=\"us-ascii\"\nMIME-Version: 1.0\nContent-Transfer-Encoding: 7bit\nContent-Disposition: attachment; filename=\"bootstrap\"\n\n#!/bin/sh\n             mkdir /etc/chef; mkdir -p /var/log/chef; \n             CLOUD=aws CHEF_SERVER_URL=https://chef.aws.adobeitc.com CHEF_ORG=adobeio CHEF_ROLE=API-Gateway-nlb CHEF_ENV=API-MCSTAGE-UE1-PCI-B CHEF_STORE=adobe-cloudops-apip-chef-ue1 ELB= python /opt/aio/bin/bootstrap_chef.py; \n             VPC_NAME= chef-client -j /etc/chef/first-boot.json  > /var/log/chef/chef-boot.log 2>&1\n\n--Apipgwmcstageue1nlbgwbgw1bbootstrap--\n"
+                    }
+                }
+            },
+            "Type": "AWS::EC2::LaunchTemplate"
+        },
+        "Apipgwmcstageue1nlbgwbgw1bscaledown": {
+            "Properties": {
+                "AdjustmentType": "ChangeInCapacity",
+                "AutoScalingGroupName": {
+                    "Ref": "Apipgwmcstageue1nlbgwbgw1b"
+                },
+                "Cooldown": 600,
+                "ScalingAdjustment": -2
+            },
+            "Type": "AWS::AutoScaling::ScalingPolicy"
+        },
+        "Apipgwmcstageue1nlbgwbgw1bscaledownalarm": {
+            "Properties": {
+                "AlarmActions": [
+                    {
+                        "Ref": "Apipgwmcstageue1nlbgwbgw1bscaledown"
+                    }
+                ],
+                "AlarmDescription": "ScaleDown alarm for APIP-gw-mcstage-ue1-nlb-gw-b-gw1b",
+                "ComparisonOperator": "LessThanOrEqualToThreshold",
+                "Dimensions": [
+                    {
+                        "Name": "AutoScalingGroupName",
+                        "Value": {
+                            "Ref": "Apipgwmcstageue1nlbgwbgw1b"
+                        }
+                    }
+                ],
+                "EvaluationPeriods": 2,
+                "InsufficientDataActions": [],
+                "MetricName": "CPUUtilization",
+                "Namespace": "AWS/EC2",
+                "OKActions": [],
+                "Period": 60,
+                "Statistic": "Minimum",
+                "Threshold": "15"
+            },
+            "Type": "AWS::CloudWatch::Alarm"
+        },
+        "Apipgwmcstageue1nlbgwbgw1bscaleup": {
+            "Properties": {
+                "AdjustmentType": "ChangeInCapacity",
+                "AutoScalingGroupName": {
+                    "Ref": "Apipgwmcstageue1nlbgwbgw1b"
+                },
+                "Cooldown": 600,
+                "ScalingAdjustment": 4
+            },
+            "Type": "AWS::AutoScaling::ScalingPolicy"
+        },
+        "Apipgwmcstageue1nlbgwbgw1bscaleupalarm": {
+            "Properties": {
+                "AlarmActions": [
+                    {
+                        "Ref": "Apipgwmcstageue1nlbgwbgw1bscaleup"
+                    }
+                ],
+                "AlarmDescription": "ScaleUp alarm for APIP-gw-mcstage-ue1-nlb-gw-b-gw1b",
+                "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+                "Dimensions": [
+                    {
+                        "Name": "AutoScalingGroupName",
+                        "Value": {
+                            "Ref": "Apipgwmcstageue1nlbgwbgw1b"
+                        }
+                    }
+                ],
+                "EvaluationPeriods": 2,
+                "InsufficientDataActions": [],
+                "MetricName": "CPUUtilization",
+                "Namespace": "AWS/EC2",
+                "OKActions": [],
+                "Period": 60,
+                "Statistic": "Maximum",
+                "Threshold": "60"
+            },
+            "Type": "AWS::CloudWatch::Alarm"
+        },
+        "Apipgwmcstageue1nlbgwbinthttpotg": {
+            "Properties": {
+                "HealthCheckIntervalSeconds": 10,
+                "HealthCheckPath": "/health-check",
+                "HealthCheckPort": "9191",
+                "HealthCheckProtocol": "HTTP",
+                "HealthyThresholdCount": "4",
+                "Matcher": {
+                    "HttpCode": "200-399"
+                },
+                "Name": "nlb-gw-b-int-httpo",
+                "Port": "9191",
+                "Protocol": "TCP",
+                "Tags": [
+                    {
+                        "Key": "Adobe.ArchPath",
+                        "Value": "AdobeIO.ApiPlatform.Gateway"
+                    },
+                    {
+                        "Key": "Adobe.Environment",
+                        "Value": "STG"
+                    },
+                    {
+                        "Key": "Adobe.Owner",
+                        "Value": "Adobe I/O"
+                    },
+                    {
+                        "Key": "Adobe.Class",
+                        "Value": "NLBTargetGroup"
+                    },
+                    {
+                        "Key": "Adobe.CostCenter",
+                        "Value": "101942"
+                    },
+                    {
+                        "Key": "Adobe.InstanceType",
+                        "Value": ""
+                    },
+                    {
+                        "Key": "Adobe.DataClassification",
+                        "Value": "Restricted"
+                    },
+                    {
+                        "Key": "Adobe.Cloud",
+                        "Value": "AWS"
+                    },
+                    {
+                        "Key": "Adobe.SKMSServiceId",
+                        "Value": "1801"
+                    },
+                    {
+                        "Key": "Adobe.Region",
+                        "Value": "va6"
+                    },
+                    {
+                        "Key": "Adobe.GatewayCollection",
+                        "Value": "MC"
+                    },
+                    {
+                        "Key": "Adobe.Stack",
+                        "Value": "APIP-gw-mcstage-ue1-nlb-gw-b"
+                    },
+                    {
+                        "Key": "Side",
+                        "Value": "B"
+                    },
+                    {
+                        "Key": "AppType",
+                        "Value": "Gateway"
+                    },
+                    {
+                        "Key": "Adobe.PCIData",
+                        "Value": "false"
+                    },
+                    {
+                        "Key": "Name",
+                        "Value": "APIP-gw-mcstage-ue1-nlb-gw-b-int"
+                    }
+                ],
+                "UnhealthyThresholdCount": "4",
+                "VpcId": "vpc-21dd6047"
+            },
+            "Type": "AWS::ElasticLoadBalancingV2::TargetGroup"
+        },
+        "Apipgwmcstageue1nlbgwbinthttpslsn": {
+            "Properties": {
+                "Certificates": [
+                    {
+                        "CertificateArn": "arn:aws:iam::720680407946:server-certificate/20220117_wildcard.adobe.io_with_infra.adobe.io"
+                    }
+                ],
+                "DefaultActions": [
+                    {
+                        "TargetGroupArn": {
+                            "Ref": "Apipgwmcstageue1nlbgwbinthttpotg"
+                        },
+                        "Type": "forward"
+                    }
+                ],
+                "LoadBalancerArn": {
+                    "Ref": "Apipgwmcstageue1nlbgwbintnlb"
+                },
+                "Port": 443,
+                "Protocol": "TLS",
+                "SslPolicy": "ELBSecurityPolicy-TLS-1-2-2017-01"
+            },
+            "Type": "AWS::ElasticLoadBalancingV2::Listener"
+        },
+        "Apipgwmcstageue1nlbgwbintnlb": {
+            "Properties": {
+                "LoadBalancerAttributes": [
+                    {
+                        "Key": "deletion_protection.enabled",
+                        "Value": "false"
+                    },
+                    {
+                        "Key": "load_balancing.cross_zone.enabled",
+                        "Value": "false"
+                    }
+                ],
+                "Name": "nlb-gw-b-int",
+                "Scheme": "internal",
+                "Subnets": [
+                    "subnet-dc1f6ef1",
+                    "subnet-fee8cfb7"
+                ],
+                "Tags": [
+                    {
+                        "Key": "Adobe.ArchPath",
+                        "Value": "AdobeIO.ApiPlatform.Gateway"
+                    },
+                    {
+                        "Key": "Adobe.Environment",
+                        "Value": "STG"
+                    },
+                    {
+                        "Key": "Adobe.Owner",
+                        "Value": "Adobe I/O"
+                    },
+                    {
+                        "Key": "Adobe.Class",
+                        "Value": "NLB"
+                    },
+                    {
+                        "Key": "Adobe.CostCenter",
+                        "Value": "101942"
+                    },
+                    {
+                        "Key": "Adobe.InstanceType",
+                        "Value": ""
+                    },
+                    {
+                        "Key": "Adobe.DataClassification",
+                        "Value": "Restricted"
+                    },
+                    {
+                        "Key": "Adobe.Cloud",
+                        "Value": "AWS"
+                    },
+                    {
+                        "Key": "Adobe.SKMSServiceId",
+                        "Value": "1801"
+                    },
+                    {
+                        "Key": "Adobe.Region",
+                        "Value": "va6"
+                    },
+                    {
+                        "Key": "Adobe.GatewayCollection",
+                        "Value": "MC"
+                    },
+                    {
+                        "Key": "Adobe.Stack",
+                        "Value": "APIP-gw-mcstage-ue1-nlb-gw-b"
+                    },
+                    {
+                        "Key": "Side",
+                        "Value": "B"
+                    },
+                    {
+                        "Key": "AppType",
+                        "Value": "Gateway"
+                    },
+                    {
+                        "Key": "Adobe.PCIData",
+                        "Value": "false"
+                    },
+                    {
+                        "Key": "Name",
+                        "Value": "APIP-gw-mcstage-ue1-nlb-gw-b-int"
+                    }
+                ],
+                "Type": "network"
+            },
+            "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer"
+        }
+    }
+}
